@@ -58,7 +58,9 @@ export default function SearchInput() {
           onClick={handleSearchUser}
         />
       </div>
-      <SearchUserRecord />
+      {onUserModal && searchUserList && (
+        <SearchUserRecord searchUserList={searchUserList} setSearchUserList={setSearchUserList} />
+      )}
     </div>
   );
 }
