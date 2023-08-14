@@ -1,5 +1,6 @@
 import home from "@/app/styles/Home.module.css";
 import Image from "next/image";
+import SearchInput from "../components/SearchInput";
 
 export default function Home() {
   return (
@@ -13,7 +14,9 @@ export default function Home() {
           alt="duo.gg"
         />
       </div>
-      <div className={home.search__container}></div>
+      <div className={home.search__container}>
+        <SearchInput />
+      </div>
     </div>
   );
 }

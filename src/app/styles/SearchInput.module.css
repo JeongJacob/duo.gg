@@ -1,0 +1,19 @@
+.input__container {
+  display: flex;
+  align-items: center;
+  margin-left: 3rem;
+}
+
+.input__element {
+  width: 250px;
+  height: 40px;
+  color: black;
+  padding-left: 1rem;
+}
+
+.search__icon {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  background-color: transparent;
+}
