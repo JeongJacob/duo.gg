@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+
+.logo__container {
+  margin: 5rem 0;
+}
+
+.logo__image {
+  width: 150px;
+  height: 40px;
+}
+
