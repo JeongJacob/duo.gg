@@ -9,6 +9,7 @@
   height: 40px;
   color: black;
   padding-left: 1rem;
+  border: none;
 }
 
 .search__icon {
