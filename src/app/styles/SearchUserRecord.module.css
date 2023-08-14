@@ -1,0 +1,24 @@
+.wrapper {
+  width: 250px;
+  background-color: white;
+  margin-left: 3rem;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  color: black;
+}
+
+.user__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  padding: 0 1rem;
+}
+
+.user__container > li {
+  font-size: 15px;
+}
+
+.user__container > svg {
+  font-size: 20px;
+}
