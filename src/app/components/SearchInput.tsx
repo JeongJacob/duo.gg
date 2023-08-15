@@ -46,6 +46,7 @@ export default function SearchInput() {
           placeholder="소환사명을 입력해주세요."
           onKeyUp={onKeySearchUser}
           onClick={() => setOnUserModal(true)}
+          onBlur={() => setOnUserModal(false)}
         />
         <Image
           className={search.search__icon}
