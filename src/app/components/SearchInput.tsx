@@ -3,26 +3,25 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import search from "@/app/styles/SearchInput.module.css";
 import SearchUserRecord from "./SearchUserRecord";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { addUserList } from "@/redux/features/userListSlice";
 
 export default function SearchInput() {
   const [searchUser, setSearchUser] = useState("");
-  const [searchUserList, setSearchUserList] = useState<string[]>([]);
   const [onUserModal, setOnUserModal] = useState(false);
-
-  useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(searchUserList));
-  }, [searchUserList]);
+  const userList = useSelector((state: RootState) => state.userList.value);
+  const dispatch = useDispatch();
 
   const onKeySearchUser = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Escape") {
       setSearchUser("");
       setOnUserModal(false);
     }
-    if (e.key === "Enter" && searchUser) {
-      if (!searchUserList.includes(searchUser)) {
-        setSearchUserList([...searchUserList, searchUser.trim()]);
+    if (e.key === "Enter") {
+      if (!userList.includes(searchUser) && searchUser.trim() !== "") {
+        dispatch(addUserList(searchUser.trim()));
       }
-      localStorage.setItem("user", JSON.stringify(searchUserList));
       setSearchUser("");
       setOnUserModal(false);
     }
@@ -30,10 +29,9 @@ export default function SearchInput() {
 
   const handleSearchUser = (e: React.MouseEvent<HTMLImageElement>) => {
     e.preventDefault();
-    if (!searchUserList.includes(searchUser)) {
-      setSearchUserList([...searchUserList, searchUser.trim()]);
+    if (!userList.includes(searchUser) && searchUser.trim() !== "") {
+      dispatch(addUserList(searchUser.trim()));
     }
-    localStorage.setItem("user", JSON.stringify(searchUserList));
     setSearchUser("");
     setOnUserModal(false);
   };
@@ -48,6 +46,7 @@ export default function SearchInput() {
           placeholder="소환사명을 입력해주세요."
           onKeyUp={onKeySearchUser}
           onClick={() => setOnUserModal(true)}
+          onBlur={() => setOnUserModal(false)}
         />
         <Image
           className={search.search__icon}
@@ -58,9 +57,7 @@ export default function SearchInput() {
           onClick={handleSearchUser}
         />
       </div>
-      {onUserModal && searchUserList && (
-        <SearchUserRecord searchUserList={searchUserList} setSearchUserList={setSearchUserList} />
-      )}
+      {onUserModal && userList && <SearchUserRecord />}
     </div>
   );
 }
