@@ -3,15 +3,20 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import search from "@/app/styles/SearchInput.module.css";
 import SearchUserRecord from "./SearchUserRecord";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { addUserList } from "@/redux/features/userListSlice";
 
 export default function SearchInput() {
   const [searchUser, setSearchUser] = useState("");
-  const [searchUserList, setSearchUserList] = useState<string[]>([]);
   const [onUserModal, setOnUserModal] = useState(false);
+  const userList = useSelector((state: RootState) => state.userList.value);
+  const dispatch = useDispatch();
+  console.log(userList);
 
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(searchUserList));
-  }, [searchUserList]);
+    localStorage.setItem("user", JSON.stringify(userList));
+  }, [userList]);
 
   const onKeySearchUser = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Escape") {
@@ -19,10 +24,10 @@ export default function SearchInput() {
       setOnUserModal(false);
     }
     if (e.key === "Enter" && searchUser) {
-      if (!searchUserList.includes(searchUser)) {
-        setSearchUserList([...searchUserList, searchUser.trim()]);
+      if (!userList.includes(searchUser)) {
+        dispatch(addUserList(searchUser.trim()));
       }
-      localStorage.setItem("user", JSON.stringify(searchUserList));
+      localStorage.setItem("user", JSON.stringify(userList));
       setSearchUser("");
       setOnUserModal(false);
     }
@@ -30,10 +35,10 @@ export default function SearchInput() {
 
   const handleSearchUser = (e: React.MouseEvent<HTMLImageElement>) => {
     e.preventDefault();
-    if (!searchUserList.includes(searchUser)) {
-      setSearchUserList([...searchUserList, searchUser.trim()]);
+    if (!userList.includes(searchUser)) {
+      dispatch(addUserList(searchUser.trim()));
     }
-    localStorage.setItem("user", JSON.stringify(searchUserList));
+    localStorage.setItem("user", JSON.stringify(userList));
     setSearchUser("");
     setOnUserModal(false);
   };
@@ -58,9 +63,7 @@ export default function SearchInput() {
           onClick={handleSearchUser}
         />
       </div>
-      {onUserModal && searchUserList && (
-        <SearchUserRecord searchUserList={searchUserList} setSearchUserList={setSearchUserList} />
-      )}
+      {onUserModal && userList && <SearchUserRecord />}
     </div>
   );
 }
