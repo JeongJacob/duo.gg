@@ -18,8 +18,8 @@ export default function SearchInput() {
       setSearchUser("");
       setOnUserModal(false);
     }
-    if (e.key === "Enter" && searchUser) {
-      if (!userList.includes(searchUser)) {
+    if (e.key === "Enter") {
+      if (!userList.includes(searchUser) && searchUser.trim() !== "") {
         dispatch(addUserList(searchUser.trim()));
       }
       setSearchUser("");
@@ -29,7 +29,7 @@ export default function SearchInput() {
 
   const handleSearchUser = (e: React.MouseEvent<HTMLImageElement>) => {
     e.preventDefault();
-    if (!userList.includes(searchUser)) {
+    if (!userList.includes(searchUser) && searchUser.trim() !== "") {
       dispatch(addUserList(searchUser.trim()));
     }
     setSearchUser("");
