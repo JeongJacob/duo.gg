@@ -22,6 +22,16 @@ const PositonBtn = styled.button`
 function _LOL() {
   return (
     <div className={lol.wrapper}>
+      <div className={lol.type__wrapper}>
+        <div className={lol.queue__type__container}>
+          <span>모든 큐</span>
+          <AiFillCaretDown />
+        </div>
+        <div className={lol.tier__type__container}>
+          <span>모든 티어</span>
+          <AiFillCaretDown />
+        </div>
+      </div>
       <div className={lol.position__container}>
         <PositonBtn>
           <Image src={"/all_icon.svg"} width={20} height={20} alt="adc"></Image>

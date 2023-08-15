@@ -4,6 +4,28 @@
   background-color: #1b1b1b;
 }
 
+.type__wrapper {
+  display: flex;
+  color: white;
+}
+
+.type__wrapper > div {
+  font-size: 15px;
+  width: 50%;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid rgb(91, 91, 91);
+  border-radius: 5px;
+  padding: 0 0.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.queue__type__container {
+  margin-right: 0.5rem;
+}
+
 .position__container {
   display: flex;
 }
