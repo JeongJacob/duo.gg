@@ -1,0 +1,19 @@
+.wrapper {
+  width: 90vw;
+  margin: 0 auto;
+  background-color: #1b1b1b;
+}
+
+.position__container {
+  display: flex;
+}
+
+.position__container > button:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.position__container > button:last-child {
+  border: 1px solid rgb(91, 91, 91);
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
