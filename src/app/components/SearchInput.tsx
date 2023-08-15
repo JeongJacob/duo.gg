@@ -12,11 +12,6 @@ export default function SearchInput() {
   const [onUserModal, setOnUserModal] = useState(false);
   const userList = useSelector((state: RootState) => state.userList.value);
   const dispatch = useDispatch();
-  console.log(userList);
-
-  useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(userList));
-  }, [userList]);
 
   const onKeySearchUser = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Escape") {
@@ -27,7 +22,6 @@ export default function SearchInput() {
       if (!userList.includes(searchUser)) {
         dispatch(addUserList(searchUser.trim()));
       }
-      localStorage.setItem("user", JSON.stringify(userList));
       setSearchUser("");
       setOnUserModal(false);
     }
@@ -38,7 +32,6 @@ export default function SearchInput() {
     if (!userList.includes(searchUser)) {
       dispatch(addUserList(searchUser.trim()));
     }
-    localStorage.setItem("user", JSON.stringify(userList));
     setSearchUser("");
     setOnUserModal(false);
   };
