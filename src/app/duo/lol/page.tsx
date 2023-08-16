@@ -5,6 +5,7 @@ import lol from "@/app/styles/_LOL.module.css";
 import { styled } from "styled-components";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import DuoPost from "@/app/components/DuoPost";
+import DuoSelectModal from "@/app/components/DuoSelect";
 
 const PositonBtn = styled.button`
   width: 40px;
@@ -35,14 +36,8 @@ function _LOL() {
   return (
     <div className={lol.wrapper}>
       <div className={lol.type__wrapper}>
-        <div className={lol.queue__type__container}>
-          <span>모든 큐</span>
-          <AiFillCaretDown />
-        </div>
-        <div className={lol.tier__type__container}>
-          <span>모든 티어</span>
-          <AiFillCaretDown />
-        </div>
+        <DuoSelectModal type="queue" />
+        <DuoSelectModal type="tier" />
       </div>
       <div className={lol.position__wrapper}>
         <div className={lol.position__container}>
