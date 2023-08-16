@@ -1,0 +1,62 @@
+.wrapper {
+  width: 90vw;
+  height: 220px;
+  margin-top: 2rem;
+  border: 1px solid rgb(91, 91, 91);
+  border-radius: 5px;
+  background-color: rgb(24, 24, 24);
+}
+
+.container {
+  padding: 0.7rem 0.5rem;
+  color: white;
+}
+
+.user__info__container {
+  display: flex;
+}
+
+.user__name__container {
+  display: flex;
+  align-items: center;
+  margin-left: 0.3rem;
+}
+.user__name__element {
+  margin-left: 0.3rem;
+}
+
+.user__info__tier__container {
+  display: flex;
+  align-items: center;
+}
+
+.user__info__voice {
+  width: 20px;
+  height: 20px;
+  color: rgb(38, 61, 215);
+  margin-left: 0.3rem;
+}
+
+.userImage__element {
+  background-color: white;
+  border-radius: 50px;
+}
+
+.user__memo__container {
+  margin: 0.5rem 0;
+  height: 80px;
+  font-size: 15px;
+}
+
+.user__record__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.7rem;
+}
+
+.user__most__container {
+  display: flex;
+  justify-content: space-between;
+  width: 130px;
+}

@@ -4,6 +4,7 @@ import React from "react";
 import lol from "@/app/styles/_LOL.module.css";
 import { styled } from "styled-components";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
+import DuoPost from "@/app/components/DuoPost";
 
 const PositonBtn = styled.button`
   width: 40px;
@@ -34,24 +35,55 @@ function _LOL() {
       </div>
       <div className={lol.position__container}>
         <PositonBtn>
-          <Image src={"/all_icon.svg"} width={20} height={20} alt="adc"></Image>
+          <Image
+            src={"/position/all_icon.svg"}
+            width={20}
+            height={20}
+            alt="adc"
+          ></Image>
         </PositonBtn>
         <PositonBtn>
-          <Image src={"/top_icon.svg"} width={20} height={20} alt="adc"></Image>
+          <Image
+            src={"/position/top_icon.svg"}
+            width={20}
+            height={20}
+            alt="adc"
+          ></Image>
         </PositonBtn>
         <PositonBtn>
-          <Image src={"/jug_icon.svg"} width={20} height={20} alt="adc"></Image>
+          <Image
+            src={"/position/jug_icon.svg"}
+            width={20}
+            height={20}
+            alt="adc"
+          ></Image>
         </PositonBtn>
         <PositonBtn>
-          <Image src={"/mid_icon.svg"} width={20} height={20} alt="adc"></Image>
+          <Image
+            src={"/position/mid_icon.svg"}
+            width={20}
+            height={20}
+            alt="adc"
+          ></Image>
         </PositonBtn>
         <PositonBtn>
-          <Image src={"/adc_icon.svg"} width={20} height={20} alt="adc"></Image>
+          <Image
+            src={"/position/adc_icon.svg"}
+            width={20}
+            height={20}
+            alt="adc"
+          ></Image>
         </PositonBtn>
         <PositonBtn>
-          <Image src={"/sup_icon.svg"} width={20} height={20} alt="adc"></Image>
+          <Image
+            src={"/position/sup_icon.svg"}
+            width={20}
+            height={20}
+            alt="adc"
+          ></Image>
         </PositonBtn>
       </div>
+      <DuoPost />
     </div>
   );
 }
