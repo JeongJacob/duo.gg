@@ -20,6 +20,17 @@ const PositonBtn = styled.button`
   }
 `;
 
+export const InteractBtn = styled.button<{ width: string }>`
+  background-color: #25ae25;
+  width: ${(props) => props.width};
+  height: 38px;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: #186c18;
+  }
+`;
+
 function _LOL() {
   return (
     <div className={lol.wrapper}>
@@ -33,55 +44,58 @@ function _LOL() {
           <AiFillCaretDown />
         </div>
       </div>
-      <div className={lol.position__container}>
-        <PositonBtn>
-          <Image
-            src={"/position/all_icon.svg"}
-            width={20}
-            height={20}
-            alt="adc"
-          ></Image>
-        </PositonBtn>
-        <PositonBtn>
-          <Image
-            src={"/position/top_icon.svg"}
-            width={20}
-            height={20}
-            alt="adc"
-          ></Image>
-        </PositonBtn>
-        <PositonBtn>
-          <Image
-            src={"/position/jug_icon.svg"}
-            width={20}
-            height={20}
-            alt="adc"
-          ></Image>
-        </PositonBtn>
-        <PositonBtn>
-          <Image
-            src={"/position/mid_icon.svg"}
-            width={20}
-            height={20}
-            alt="adc"
-          ></Image>
-        </PositonBtn>
-        <PositonBtn>
-          <Image
-            src={"/position/adc_icon.svg"}
-            width={20}
-            height={20}
-            alt="adc"
-          ></Image>
-        </PositonBtn>
-        <PositonBtn>
-          <Image
-            src={"/position/sup_icon.svg"}
-            width={20}
-            height={20}
-            alt="adc"
-          ></Image>
-        </PositonBtn>
+      <div className={lol.position__wrapper}>
+        <div className={lol.position__container}>
+          <PositonBtn>
+            <Image
+              src={"/position/all_icon.svg"}
+              width={20}
+              height={20}
+              alt="adc"
+            ></Image>
+          </PositonBtn>
+          <PositonBtn>
+            <Image
+              src={"/position/top_icon.svg"}
+              width={20}
+              height={20}
+              alt="adc"
+            ></Image>
+          </PositonBtn>
+          <PositonBtn>
+            <Image
+              src={"/position/jug_icon.svg"}
+              width={20}
+              height={20}
+              alt="adc"
+            ></Image>
+          </PositonBtn>
+          <PositonBtn>
+            <Image
+              src={"/position/mid_icon.svg"}
+              width={20}
+              height={20}
+              alt="adc"
+            ></Image>
+          </PositonBtn>
+          <PositonBtn>
+            <Image
+              src={"/position/adc_icon.svg"}
+              width={20}
+              height={20}
+              alt="adc"
+            ></Image>
+          </PositonBtn>
+          <PositonBtn>
+            <Image
+              src={"/position/sup_icon.svg"}
+              width={20}
+              height={20}
+              alt="adc"
+            ></Image>
+          </PositonBtn>
+        </div>
+        <InteractBtn width="100px">글 쓰기</InteractBtn>
       </div>
       <DuoPost />
     </div>

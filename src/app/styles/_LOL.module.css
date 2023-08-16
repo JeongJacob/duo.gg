@@ -26,6 +26,12 @@
   margin-right: 0.5rem;
 }
 
+.position__wrapper {
+  display: flex;
+  justify-content: space-between;
+  color: white;
+}
+
 .position__container {
   display: flex;
 }
