@@ -1,11 +1,11 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import search from "@/app/styles/SearchInput.module.css";
+import { useState } from "react";
 import SearchUserRecord from "./SearchUserRecord";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { addUserList } from "@/redux/features/userListSlice";
+import search from "@/app/styles/SearchInput.module.css";
 
 export default function SearchInput() {
   const [searchUser, setSearchUser] = useState("");

@@ -3,7 +3,6 @@ import Image from "next/image";
 import React from "react";
 import lol from "@/app/styles/_LOL.module.css";
 import { styled } from "styled-components";
-import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import DuoPost from "@/app/components/DuoPost";
 import DuoSelectModal from "@/app/components/DuoSelect";
 

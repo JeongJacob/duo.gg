@@ -1,7 +1,7 @@
 import Image from "next/image";
-import post from "@/app/styles/DuoPost.module.css";
 import { IoMic } from "react-icons/io5";
 import { InteractBtn } from "../duo/lol/page";
+import post from "@/app/styles/DuoPost.module.css";
 
 export default function DuoPost() {
   return (
