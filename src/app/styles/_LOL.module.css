@@ -21,11 +21,11 @@
   display: flex;
 }
 
-.position__container > button:first-child {
+.position__container > li:first-child > button {
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
-.position__container > button:last-child {
+.position__container > li:last-child > button {
   border: 1px solid rgb(91, 91, 91);
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
