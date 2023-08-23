@@ -15,9 +15,8 @@ export const selectTabSlice = createSlice({
   initialState,
   reducers: {
     handleSelectQueueTab(state, action: PayloadAction<string>) {
-      {
-        state.queueValue = action.payload;
-      }
+      state.queueValue = action.payload;
+      console.log(state.queueValue);
     },
     handleSelectTierTab(state, action: PayloadAction<string>) {
       state.tierValue = action.payload;
