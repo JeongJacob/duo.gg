@@ -1,13 +1,19 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface SelectTabState {
-  queueValue: string;
-  tierValue: string;
+  queueValue: {
+    value: string;
+    label: string;
+  };
+  tierValue: {
+    value: string;
+    label: string;
+  };
 }
 
 const initialState = {
-  queueValue: "모든 큐",
-  tierValue: "모든 티어",
+  queueValue: { value: "모든 큐", label: "모든 큐" },
+  tierValue: { value: "모든 큐", label: "모든 큐" },
 } as SelectTabState;
 
 export const selectTabSlice = createSlice({
@@ -15,11 +21,12 @@ export const selectTabSlice = createSlice({
   initialState,
   reducers: {
     handleSelectQueueTab(state, action: PayloadAction<string>) {
-      state.queueValue = action.payload;
-      console.log(state.queueValue);
+      state.queueValue.value = action.payload;
+      state.queueValue.label = action.payload;
     },
     handleSelectTierTab(state, action: PayloadAction<string>) {
-      state.tierValue = action.payload;
+      state.tierValue.value = action.payload;
+      state.tierValue.label = action.payload;
     },
   },
 });

@@ -1,32 +1,45 @@
+"use client";
+import {
+  handleSelectQueueTab,
+  handleSelectTierTab,
+} from "@/redux/features/selectTabSlice";
+import { useDispatch } from "react-redux";
 import Select, {
   CSSObjectWithLabel,
   GroupBase,
   OptionProps,
 } from "react-select";
 
-export default function DuoSelectModal({ type }: { type: string }) {
-  const queueOptions = [
-    { value: "모든 큐", label: "모든 큐" },
-    { value: "솔로랭크", label: "솔로랭크" },
-    { value: "자유랭크", label: "자유랭크" },
-    { value: "일반게임", label: "일반게임" },
-    { value: "칼바람 협곡", label: "칼바람 협곡" },
-  ];
+interface SelectType {
+  readonly value: string;
+  readonly label: string;
+}
 
-  const tierOptions = [
-    { value: "모든 티어", label: "모든 티어" },
-    { value: "아이언", label: "아이언" },
-    { value: "브론즈", label: "브론즈" },
-    { value: "실버", label: "실버" },
-    { value: "골드", label: "골드" },
-    { value: "에메랄드", label: "에메랄드" },
-    { value: "다이아몬드", label: "다이아몬드" },
-  ];
+interface DefaultValueType {
+  value: string;
+  label: string;
+}
+export default function DuoSelectModal({
+  type,
+  width,
+  isQueue,
+  defaultValue,
+}: {
+  type: SelectType[];
+  width: string;
+  isQueue: boolean;
+  defaultValue: DefaultValueType;
+}) {
+  const dispatch = useDispatch();
+  const handleSelectValue = (selectValue: string) => {
+    if (isQueue) dispatch(handleSelectQueueTab(selectValue));
+    else dispatch(handleSelectTierTab(selectValue));
+  };
 
   const customStyles = {
     control: (base: CSSObjectWithLabel) => ({
       ...base,
-      width: type === "queue" ? "180px" : "160px",
+      width: width,
       backgroundColor: "#19191a;",
       fontColor: "white",
       borderColor: "#19191a;",
@@ -58,9 +71,12 @@ export default function DuoSelectModal({ type }: { type: string }) {
   };
   return (
     <Select
-      options={type === "queue" ? queueOptions : tierOptions}
+      options={type}
       styles={customStyles}
-      defaultValue={type === "queue" ? queueOptions[0] : tierOptions[0]}
+      defaultValue={defaultValue}
+      onChange={(selectValue) =>
+        selectValue && handleSelectValue(selectValue.value)
+      }
     />
   );
 }
