@@ -13,7 +13,7 @@ interface SelectTabState {
 
 const initialState = {
   queueValue: { value: "모든 큐", label: "모든 큐" },
-  tierValue: { value: "모든 큐", label: "모든 큐" },
+  tierValue: { value: "모든 티어", label: "모든 티어" },
 } as SelectTabState;
 
 export const selectTabSlice = createSlice({
