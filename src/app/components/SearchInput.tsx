@@ -46,7 +46,6 @@ export default function SearchInput() {
           placeholder="소환사명을 입력해주세요."
           onKeyUp={onKeySearchUser}
           onClick={() => setOnUserModal(true)}
-          onBlur={() => setOnUserModal(false)}
         />
         <Image
           className={search.search__icon}
@@ -57,7 +56,14 @@ export default function SearchInput() {
           onClick={handleSearchUser}
         />
       </div>
-      {onUserModal && userList && <SearchUserRecord />}
+      <div>
+        {onUserModal && userList && (
+          <SearchUserRecord
+            setSearchUser={setSearchUser}
+            setOnUserModal={setOnUserModal}
+          />
+        )}
+      </div>
     </div>
   );
 }
