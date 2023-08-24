@@ -10,7 +10,7 @@ import search from "@/app/styles/SearchInput.module.css";
 export default function SearchInput() {
   const [searchUser, setSearchUser] = useState("");
   const [onUserModal, setOnUserModal] = useState(false);
-  const userList = useSelector((state: RootState) => state.userList.value);
+  const userList = useSelector((state: RootState) => state.userList.userList);
   const dispatch = useDispatch();
 
   const onKeySearchUser = (e: React.KeyboardEvent<HTMLInputElement>) => {

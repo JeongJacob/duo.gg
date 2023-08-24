@@ -19,7 +19,7 @@ export const InteractBtn = styled.button<{ width: string }>`
   }
 `;
 
-const queueOptions = [
+const queueOptionData = [
   { value: "모든 큐", label: "모든 큐" },
   { value: "솔로랭크", label: "솔로랭크" },
   { value: "자유랭크", label: "자유랭크" },
@@ -27,7 +27,7 @@ const queueOptions = [
   { value: "칼바람 협곡", label: "칼바람 협곡" },
 ];
 
-const tierOptions = [
+const tierOptionsData = [
   { value: "모든 티어", label: "모든 티어" },
   { value: "아이언", label: "아이언" },
   { value: "브론즈", label: "브론즈" },
@@ -48,13 +48,13 @@ function _LOL() {
     <div className={lol.wrapper}>
       <div className={lol.type__wrapper}>
         <DuoSelect
-          type={queueOptions}
+          selectData={queueOptionData}
           width="180px"
           isQueue={true}
           defaultValue={queueValue}
         />
         <DuoSelect
-          type={tierOptions}
+          selectData={tierOptionsData}
           width="160px"
           isQueue={false}
           defaultValue={tierValue}

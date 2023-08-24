@@ -20,12 +20,12 @@ interface DefaultValueType {
   label: string;
 }
 export default function DuoSelectModal({
-  type,
+  selectData,
   width,
   isQueue,
   defaultValue,
 }: {
-  type: SelectType[];
+  selectData: SelectType[];
   width: string;
   isQueue: boolean;
   defaultValue: DefaultValueType;
@@ -71,7 +71,7 @@ export default function DuoSelectModal({
   };
   return (
     <Select
-      options={type}
+      options={selectData}
       styles={customStyles}
       defaultValue={defaultValue}
       onChange={(selectValue) =>

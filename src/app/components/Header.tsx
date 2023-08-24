@@ -6,7 +6,7 @@ import header from "@/app/styles/Header.module.css";
 
 export default function Header() {
   const isLogin = useSelector(
-    (state: RootState) => state.userLog.value.isLogin
+    (state: RootState) => state.userLog.userLog.isLogin
   );
   return (
     <header className={header.wrapper}>

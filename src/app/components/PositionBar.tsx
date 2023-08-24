@@ -29,7 +29,7 @@ const PositonBtn = styled.button<{
   }
 `;
 
-const positionBar: PositionT[] = [
+const entryPosition: PositionT[] = [
   {
     position: "all",
     num: 0,
@@ -70,7 +70,7 @@ export default function PositionBar() {
     <>
       <div className={lol.position__wrapper}>
         <ul className={lol.position__container}>
-          {positionBar.map((position) => (
+          {entryPosition.map((position) => (
             <li key={position.num}>
               <PositonBtn
                 selected={positionSelected}
