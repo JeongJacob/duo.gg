@@ -1,0 +1,32 @@
+.wrapper {
+  width: 90vw;
+  margin: 0 auto;
+  background-color: #1b1b1b;
+}
+
+.type__wrapper {
+  display: flex;
+  justify-content: space-between;
+  color: white;
+}
+
+.position__wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  color: white;
+}
+
+.position__container {
+  display: flex;
+}
+
+.position__container > li:first-child > button {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.position__container > li:last-child > button {
+  border: 1px solid rgb(91, 91, 91);
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}

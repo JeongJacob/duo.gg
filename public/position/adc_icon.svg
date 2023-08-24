@@ -1,0 +1,28 @@
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="#ffffff"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          opacity="0.3"
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M12.5874 5.1268H5.12675V12.5875L1.99995 15.7143V1.99999H15.7142L12.5874 5.1268Z"
+          fill="#ffffff"
+        ></path>
+        <path
+          d="M18 18H3.14286L6.4058 14.7371H14.7371V6.4058L18 3.14286V18Z"
+          fill="#ffffff"
+        ></path>
+        <rect
+          opacity="0.3"
+          x="12.2858"
+          y="12.2857"
+          width="4.57143"
+          height="4.57143"
+          transform="rotate(-180 12.2858 12.2857)"
+          fill="#ffffff"
+        ></rect>
+      </svg>

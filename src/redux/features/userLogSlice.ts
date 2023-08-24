@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface UserLogState {
-  value: T;
+  userLog: T;
 }
 
 interface T {
@@ -11,7 +11,7 @@ interface T {
   voice: boolean;
 }
 const initialState = {
-  value: {
+  userLog: {
     isLogin: false,
     nickname: "",
     tier: "",
@@ -25,13 +25,13 @@ export const userLogSlice = createSlice({
   reducers: {
     LoginReducer(state, action: PayloadAction<T>) {
       const { isLogin, nickname, tier, voice } = action.payload;
-      state.value.isLogin = isLogin;
-      state.value.nickname = nickname;
-      state.value.tier = tier;
-      state.value.voice = voice;
+      state.userLog.isLogin = isLogin;
+      state.userLog.nickname = nickname;
+      state.userLog.tier = tier;
+      state.userLog.voice = voice;
     },
     LogOutReducer(state) {
-      state.value = {
+      state.userLog = {
         isLogin: false,
         nickname: "",
         tier: "",

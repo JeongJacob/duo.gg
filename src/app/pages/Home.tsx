@@ -1,6 +1,6 @@
-import home from "@/app/styles/Home.module.css";
 import Image from "next/image";
 import SearchInput from "../components/SearchInput";
+import home from "@/app/styles/Home.module.css";
 
 export default function Home() {
   return (

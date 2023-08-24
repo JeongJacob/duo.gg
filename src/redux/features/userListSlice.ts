@@ -1,11 +1,11 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface UserState {
-  value: string[];
+  userList: string[];
 }
 
 const initialState = {
-  value: [],
+  userList: [],
 } as UserState;
 
 export const userListSlice = createSlice({
@@ -13,10 +13,10 @@ export const userListSlice = createSlice({
   initialState,
   reducers: {
     addUserList(state, action: PayloadAction<string>) {
-      state.value = [...state.value, action.payload];
+      state.userList = [...state.userList, action.payload];
     },
     delUserList(state, action: PayloadAction<string>) {
-      state.value = state.value.filter((user) => user !== action.payload);
+      state.userList = state.userList.filter((user) => user !== action.payload);
     },
   },
 });

@@ -1,12 +1,12 @@
 "use client";
-import userRecord from "@/app/styles/SearchUserRecord.module.css";
 import { delUserList } from "@/redux/features/userListSlice";
 import { RootState } from "@/redux/store";
 import { IoCloseOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
+import userRecord from "@/app/styles/SearchUserRecord.module.css";
 
 export default function SearchUserRecord() {
-  const userList = useSelector((state: RootState) => state.userList.value);
+  const userList = useSelector((state: RootState) => state.userList.userList);
   const dispatch = useDispatch();
 
   return (
