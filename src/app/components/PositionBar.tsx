@@ -56,16 +56,17 @@ const entryPosition: PositionT[] = [
   },
 ];
 export default function PositionBar() {
-  const [positionSelected, setPositionSelected] = useState(0);
+  const [positionSelected, setPositionSelected] = useState<PositionT>(
+    entryPosition[0]
+  );
 
   const handleSelectedPosition = (
     e: React.MouseEvent<HTMLButtonElement>,
-    position: number
+    position: PositionT
   ) => {
     e.preventDefault();
     setPositionSelected(position);
   };
-
   return (
     <>
       <div className={lol.position__wrapper}>
@@ -73,10 +74,10 @@ export default function PositionBar() {
           {entryPosition.map((position) => (
             <li key={position.num}>
               <PositonBtn
-                selected={positionSelected}
+                selected={positionSelected.num}
                 idx={position.num}
                 onClick={(e) => {
-                  handleSelectedPosition(e, position.num);
+                  handleSelectedPosition(e, position);
                 }}
               >
                 <Image
