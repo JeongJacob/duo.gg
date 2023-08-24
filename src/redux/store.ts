@@ -7,14 +7,21 @@ import selectTabSlice from "./features/selectTabSlice";
 import sessionStorage from "redux-persist/lib/storage/session";
 
 // storage에 저장하기 위해 아래와 같이 persistConfig를 생성해야 한다.
-const persistConfig = {
+const userListPersistConfig = {
   //obj의 key를 나타냄
-  key: "user",
+  key: "userList",
   //storage의 타입을 나타냄(여기에선 localstorage)
   storage,
   // theme Reducer만 persist 적용하기 whitelist 외에도 blacklist 등 여러 option이 존재한다.
-  whitelist: ["userList", "userLog"],
-  blacklist: ["selectTab"],
+  whitelist: ["userList"],
+};
+const userLogPersistConfig = {
+  //obj의 key를 나타냄
+  key: "userLog",
+  //storage의 타입을 나타냄(여기에선 localstorage)
+  storage,
+  // theme Reducer만 persist 적용하기 whitelist 외에도 blacklist 등 여러 option이 존재한다.
+  whitelist: ["userLog"],
 };
 
 const tabPersistConfig = {
@@ -25,16 +32,13 @@ const tabPersistConfig = {
 
 // reducer를 여기에 추가하시면 됩니다
 const rootReducer = combineReducers({
-  userList: userListSlice,
-  userLog: userLogSlice,
+  userList: persistReducer(userListPersistConfig, userListSlice),
+  userLog: persistReducer(userLogPersistConfig, userLogSlice),
   selectTab: persistReducer(tabPersistConfig, selectTabSlice),
 });
 
-//enhanced된 reducer를 반환한다.(redux-persist+redux 모듈을 종합하여 persist를 반환)
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
