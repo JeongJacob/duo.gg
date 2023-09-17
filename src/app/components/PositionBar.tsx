@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import { styled } from "styled-components";
-import { InteractBtn } from "../duo/lol/page";
 import { useState } from "react";
 import lol from "@/app/styles/_LOL.module.css";
 
@@ -69,29 +68,26 @@ export default function PositionBar() {
   };
   return (
     <>
-      <div className={lol.position__wrapper}>
-        <ul className={lol.position__container}>
-          {entryPosition.map((position) => (
-            <li key={position.num}>
-              <PositonBtn
-                selected={positionSelected.num}
-                idx={position.num}
-                onClick={(e) => {
-                  handleSelectedPosition(e, position);
-                }}
-              >
-                <Image
-                  src={`/position/${position.position}_icon.svg`}
-                  width={20}
-                  height={20}
-                  alt="adc"
-                />
-              </PositonBtn>
-            </li>
-          ))}
-        </ul>
-        <InteractBtn width="100px">글 쓰기</InteractBtn>
-      </div>
+      <ul className={lol.position__container}>
+        {entryPosition.map((position) => (
+          <li key={position.num}>
+            <PositonBtn
+              selected={positionSelected.num}
+              idx={position.num}
+              onClick={(e) => {
+                handleSelectedPosition(e, position);
+              }}
+            >
+              <Image
+                src={`/position/${position.position}_icon.svg`}
+                width={20}
+                height={20}
+                alt="adc"
+              />
+            </PositonBtn>
+          </li>
+        ))}
+      </ul>
     </>
   );
 }

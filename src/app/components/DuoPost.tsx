@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { IoMic } from "react-icons/io5";
-import { InteractBtn } from "../duo/lol/page";
+import InteractBtn from "./InteractBtn";
 import post from "@/app/styles/DuoPost.module.css";
 
 export default function DuoPost() {
@@ -65,7 +65,7 @@ export default function DuoPost() {
               alt="adc"
             />
           </div>
-          <InteractBtn width="120px">전적 보기</InteractBtn>
+          <InteractBtn width="120px" text={"전적 보기"}/>
         </div>
       </div>
     </div>
