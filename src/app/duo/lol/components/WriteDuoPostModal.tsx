@@ -50,7 +50,7 @@ export default function WriteDuoPostModal({
   const yourPositonValue = useSelector(
     (state: RootState) => state.selectPositon.yourPosition
   );
-  console.log(summonerInput);
+
   return (
     <div className={lol.duoPostModal__bg__wrapper}>
       <div className={lol.duoPostModal__wrapper}>
