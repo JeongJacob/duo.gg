@@ -5,6 +5,7 @@ import storage from "redux-persist/lib/storage";
 import userLogSlice from "./features/userLogSlice";
 import selectTabSlice from "./features/selectTabSlice";
 import sessionStorage from "redux-persist/lib/storage/session";
+import selectPositionSlice from "./features/selectPositionSlice";
 
 // storage에 저장하기 위해 아래와 같이 persistConfig를 생성해야 한다.
 const userListPersistConfig = {
@@ -35,6 +36,7 @@ const rootReducer = combineReducers({
   userList: persistReducer(userListPersistConfig, userListSlice),
   userLog: persistReducer(userLogPersistConfig, userLogSlice),
   selectTab: persistReducer(tabPersistConfig, selectTabSlice),
+  selectPositon: selectPositionSlice,
 });
 
 const store = configureStore({
