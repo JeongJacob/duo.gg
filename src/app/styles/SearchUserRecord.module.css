@@ -1,5 +1,7 @@
 .wrapper {
   width: 250px;
+  max-height: 250px;
+  overflow: scroll;
   background-color: white;
   margin-left: 3rem;
   border-bottom-left-radius: 5px;
@@ -7,16 +9,23 @@
   color: black;
 }
 
-.user__container {
+.user__container > li {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 40px;
   padding: 0 1rem;
+  cursor: pointer;
+  font-size: 15px;
+  height: 40px;
+  color: rgb(55, 55, 55);
 }
 
-.user__container > li {
-  font-size: 15px;
+.user__container > li:hover {
+  background-color: rgb(242, 242, 242);
+}
+
+.user__container > li > span {
+  width: 80%;
 }
 
 .user__container > svg {
