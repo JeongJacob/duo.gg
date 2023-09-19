@@ -1,8 +1,12 @@
 "use client";
 import Image from "next/image";
-import { styled } from "styled-components";
-import { InteractBtn } from "../duo/lol/page";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import {
+  handleSelectMyPosition,
+  handleSelectYourPosition,
+} from "@/redux/features/selectPositionSlice";
+import { styled } from "styled-components";
 import lol from "@/app/styles/_LOL.module.css";
 
 interface PositionT {
@@ -55,10 +59,11 @@ const entryPosition: PositionT[] = [
     num: 5,
   },
 ];
-export default function PositionBar() {
+export default function PositionBar({ type }: { type?: string }) {
   const [positionSelected, setPositionSelected] = useState<PositionT>(
     entryPosition[0]
   );
+  const dispatch = useDispatch();
 
   const handleSelectedPosition = (
     e: React.MouseEvent<HTMLButtonElement>,
@@ -66,32 +71,31 @@ export default function PositionBar() {
   ) => {
     e.preventDefault();
     setPositionSelected(position);
+    if (type === "my") dispatch(handleSelectMyPosition(position.position));
+    if (type === "your") dispatch(handleSelectYourPosition(position.position));
   };
   return (
     <>
-      <div className={lol.position__wrapper}>
-        <ul className={lol.position__container}>
-          {entryPosition.map((position) => (
-            <li key={position.num}>
-              <PositonBtn
-                selected={positionSelected.num}
-                idx={position.num}
-                onClick={(e) => {
-                  handleSelectedPosition(e, position);
-                }}
-              >
-                <Image
-                  src={`/position/${position.position}_icon.svg`}
-                  width={20}
-                  height={20}
-                  alt="adc"
-                />
-              </PositonBtn>
-            </li>
-          ))}
-        </ul>
-        <InteractBtn width="100px">글 쓰기</InteractBtn>
-      </div>
+      <ul className={lol.position__container}>
+        {entryPosition.map((position) => (
+          <li key={position.num}>
+            <PositonBtn
+              selected={positionSelected.num}
+              idx={position.num}
+              onClick={(e) => {
+                handleSelectedPosition(e, position);
+              }}
+            >
+              <Image
+                src={`/position/${position.position}_icon.svg`}
+                width={20}
+                height={20}
+                alt="adc"
+              />
+            </PositonBtn>
+          </li>
+        ))}
+      </ul>
     </>
   );
 }

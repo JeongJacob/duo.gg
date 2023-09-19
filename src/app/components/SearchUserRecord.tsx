@@ -15,11 +15,9 @@ export default function SearchUserRecord({
 }) {
   const userList = useSelector((state: RootState) => state.userList.userList);
   const dispatch = useDispatch();
-  const modalRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     document.addEventListener("click", handleDocumentClick);
-
     return () => {
       document.removeEventListener("click", handleDocumentClick);
     };
@@ -30,7 +28,7 @@ export default function SearchUserRecord({
   };
 
   return (
-    <div className={userRecord.wrapper} ref={modalRef}>
+    <div className={userRecord.wrapper}>
       <ul className={userRecord.user__container}>
         {userList.map((user, idx) => (
           <li key={idx}>
