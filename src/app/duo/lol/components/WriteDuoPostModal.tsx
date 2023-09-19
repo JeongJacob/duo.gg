@@ -38,6 +38,12 @@ export default function WriteDuoPostModal({
   const queueValue = useSelector(
     (state: RootState) => state.selectTab.queueValue
   );
+  const myPositonValue = useSelector(
+    (state: RootState) => state.selectPositon.myPosition
+  );
+  const yourPositonValue = useSelector(
+    (state: RootState) => state.selectPositon.yourPosition
+  );
   return (
     <div className={lol.duoPostModal__bg__wrapper}>
       <div className={lol.duoPostModal__wrapper}>
@@ -54,14 +60,14 @@ export default function WriteDuoPostModal({
         </div>
         <div className={lol.myPosition__container}>
           내 포지션
-          <PositionBar />
+          <PositionBar type="my" />
         </div>
         <div className={lol.yourPosition__container}>
           찾고 있는 포지션
-          <PositionBar />
+          <PositionBar type="your" />
         </div>
         <div className={lol.summonerBoard__container}>
-          <textarea placeholder="작성할 메모" />
+          <textarea placeholder="작성할 메모(20자~50자 내)" />
         </div>
         <div className={lol.isVoice__container}>
           <IoMic size="20px" />

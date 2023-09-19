@@ -1,7 +1,12 @@
 "use client";
 import Image from "next/image";
-import { styled } from "styled-components";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import {
+  handleSelectMyPosition,
+  handleSelectYourPosition,
+} from "@/redux/features/selectPositionSlice";
+import { styled } from "styled-components";
 import lol from "@/app/styles/_LOL.module.css";
 
 interface PositionT {
@@ -54,10 +59,11 @@ const entryPosition: PositionT[] = [
     num: 5,
   },
 ];
-export default function PositionBar() {
+export default function PositionBar({ type }: { type?: string }) {
   const [positionSelected, setPositionSelected] = useState<PositionT>(
     entryPosition[0]
   );
+  const dispatch = useDispatch();
 
   const handleSelectedPosition = (
     e: React.MouseEvent<HTMLButtonElement>,
@@ -65,6 +71,8 @@ export default function PositionBar() {
   ) => {
     e.preventDefault();
     setPositionSelected(position);
+    if (type === "my") dispatch(handleSelectMyPosition(position.position));
+    if (type === "your") dispatch(handleSelectYourPosition(position.position));
   };
   return (
     <>
