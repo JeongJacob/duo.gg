@@ -34,7 +34,13 @@ export default function WriteDuoPostModal({
 }: {
   setIsWriteModal: Dispatch<SetStateAction<boolean>>;
 }) {
-  const [isToggle, setIsToggle] = useState(false);
+  const [summonerInput, setSummonerInput] = useState({
+    summonerName: "",
+    summonerBoard: "",
+  });
+  const [isVoiceToggle, setIsVoiceToggle] = useState(false);
+
+  //store
   const queueValue = useSelector(
     (state: RootState) => state.selectTab.queueValue
   );
@@ -44,6 +50,7 @@ export default function WriteDuoPostModal({
   const yourPositonValue = useSelector(
     (state: RootState) => state.selectPositon.yourPosition
   );
+  console.log(summonerInput);
   return (
     <div className={lol.duoPostModal__bg__wrapper}>
       <div className={lol.duoPostModal__wrapper}>
@@ -56,7 +63,16 @@ export default function WriteDuoPostModal({
           />
         </div>
         <div className={lol.summonerName__container}>
-          <input type="text" placeholder="내 소환사명"></input>
+          <input
+            type="text"
+            placeholder="내 소환사명"
+            onChange={(e) =>
+              setSummonerInput({
+                ...summonerInput,
+                summonerName: e.target.value,
+              })
+            }
+          />
         </div>
         <div className={lol.myPosition__container}>
           내 포지션
@@ -67,14 +83,22 @@ export default function WriteDuoPostModal({
           <PositionBar type="your" />
         </div>
         <div className={lol.summonerBoard__container}>
-          <textarea placeholder="작성할 메모(20자~50자 내)" />
+          <textarea
+            placeholder="작성할 메모(20자~50자 내)"
+            onChange={(e) =>
+              setSummonerInput({
+                ...summonerInput,
+                summonerBoard: e.target.value,
+              })
+            }
+          />
         </div>
         <div className={lol.isVoice__container}>
           <IoMic size="20px" />
-          <ToggleContainer $isToggle={isToggle}>
+          <ToggleContainer $isToggle={isVoiceToggle}>
             <ToggleCircle
-              $isToggle={isToggle}
-              onClick={() => setIsToggle(!isToggle)}
+              $isToggle={isVoiceToggle}
+              onClick={() => setIsVoiceToggle(!isVoiceToggle)}
             />
           </ToggleContainer>
         </div>
