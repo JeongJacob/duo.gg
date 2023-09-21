@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DuoPost from "@/app/components/DuoPost";
 import DuoSelect from "@/app/components/DuoSelect";
 import PositionBar from "@/app/components/PositionBar";
@@ -8,6 +8,14 @@ import { RootState } from "@/redux/store";
 import InteractBtn from "@/app/components/InteractBtn";
 import lol from "@/app/styles/_LOL.module.css";
 import WriteDuoPostModal from "./components/WriteDuoPostModal";
+import { db } from "@/firebase/clientApp";
+import {
+  DocumentData,
+  QuerySnapshot,
+  collection,
+  onSnapshot,
+  query,
+} from "firebase/firestore";
 
 export const queueOptionData = [
   { value: "모든 큐", label: "모든 큐" },
@@ -27,15 +35,47 @@ const tierOptionsData = [
   { value: "다이아몬드", label: "다이아몬드" },
 ];
 
+export interface LOLDuoPostType {
+  isVoice: boolean;
+  summonerName: string;
+  summonerBoard: string;
+  myPositonValue: string;
+  yourPositonValue: string;
+  queueValue: string;
+}
+
 function _LOL() {
   const [isWriteModal, setIsWriteModal] = useState(false);
-
+  const [postData, setPostData] = useState<LOLDuoPostType[]>([]);
   const queueValue = useSelector(
     (state: RootState) => state.selectTab.queueValue
   );
   const tierValue = useSelector(
     (state: RootState) => state.selectTab.tierValue
   );
+
+  useEffect(() => {
+    const collectionPath = "duo/lol/post";
+    const q = query(collection(db, collectionPath));
+
+    const AddDuoPost = (
+      snapshot: QuerySnapshot<DocumentData, DocumentData>
+    ) => {
+      const newDataArray: LOLDuoPostType[] = [];
+      snapshot.forEach((doc) => {
+        const data = doc.data() as LOLDuoPostType;
+        newDataArray.push(data);
+      });
+      setPostData(newDataArray);
+    };
+
+    const callSnapShot = onSnapshot(q, AddDuoPost);
+
+    return () => {
+      callSnapShot();
+    };
+  }, [db]);
+
   return (
     <>
       {isWriteModal && <WriteDuoPostModal setIsWriteModal={setIsWriteModal} />}
@@ -62,7 +102,9 @@ function _LOL() {
             onClick={() => setIsWriteModal(true)}
           />
         </div>
-        <DuoPost />
+        {postData.map((post, idx) => (
+          <DuoPost postData={post} key={idx} />
+        ))}
       </div>
     </>
   );
