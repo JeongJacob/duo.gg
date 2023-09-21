@@ -5,7 +5,17 @@ import post from "@/app/styles/DuoPost.module.css";
 import { LOLDuoPostType } from "../duo/lol/page";
 
 export default function DuoPost({ postData }: { postData: LOLDuoPostType }) {
+  const handlePositionFilter = (position: string) => {
+    let filteredPosition = "";
+    if (position === "all") filteredPosition = "포지션 상관 없이";
+    if (position === "top") filteredPosition = "탑 유저";
+    if (position === "jug") filteredPosition = "정글 유저";
+    if (position === "mid") filteredPosition = "미드 유저";
+    if (position === "adc") filteredPosition = "원딜 유저";
+    if (position === "sup") filteredPosition = "서폿 유저";
 
+    return filteredPosition;
+  };
   return (
     <div className={post.wrapper}>
       <div className={post.container}>
@@ -20,7 +30,7 @@ export default function DuoPost({ postData }: { postData: LOLDuoPostType }) {
           <div>
             <div className={post.summoner__title__container}>
               {postData.queueValue}&nbsp;
-              {postData.yourPositonValue}&nbsp;구합니다.
+              {handlePositionFilter(postData.yourPositonValue)}&nbsp;구합니다.
             </div>
             <div className={post.summoner__info__tier__container}>
               <Image
