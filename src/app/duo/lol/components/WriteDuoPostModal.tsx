@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 import PositionBar from "@/app/components/PositionBar";
 import InteractBtn from "@/app/components/InteractBtn";
 import { queueOptionData } from "../page";
+import { db } from "@/firebase/clientApp";
+import { addDoc, collection } from "firebase/firestore";
 import { styled } from "styled-components";
 import lol from "@/app/styles/_LOL.module.css";
 
@@ -51,6 +53,17 @@ export default function WriteDuoPostModal({
     (state: RootState) => state.selectPositon.yourPosition
   );
 
+  const handleAddDuoPost = async () => {
+    const { summonerName, summonerBoard } = summonerInput;
+    await addDoc(collection(db, "duo/lol/post"), {
+      isVocie: isVoiceToggle,
+      summonerName: summonerName,
+      summonerBoard: summonerBoard,
+      myPositonValue: myPositonValue,
+      yourPositonValue: yourPositonValue,
+      queueValue: queueValue.value,
+    });
+  };
   return (
     <div className={lol.duoPostModal__bg__wrapper}>
       <div className={lol.duoPostModal__wrapper}>
@@ -102,7 +115,11 @@ export default function WriteDuoPostModal({
             />
           </ToggleContainer>
         </div>
-        <InteractBtn width="100%" text={"등록하기"} />
+        <InteractBtn
+          width="100%"
+          text={"등록하기"}
+          onClick={handleAddDuoPost}
+        />
         <InteractBtn
           width="100%"
           text={"닫기"}
