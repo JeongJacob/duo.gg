@@ -56,7 +56,7 @@ export default function WriteDuoPostModal({
   const handleAddDuoPost = async () => {
     const { summonerName, summonerBoard } = summonerInput;
     await addDoc(collection(db, "duo/lol/post"), {
-      isVocie: isVoiceToggle,
+      isVoice: isVoiceToggle,
       summonerName: summonerName,
       summonerBoard: summonerBoard,
       myPositonValue: myPositonValue,
