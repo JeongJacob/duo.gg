@@ -1,11 +1,21 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
+export interface PositionT {
+  position: string;
+  num: number;
+}
+
 interface SelectPositionState {
+  positionSelected: PositionT;
   myPosition: string;
   yourPosition: string;
 }
 
 const initialState = {
+  positionSelected: {
+    position: "all",
+    num: 0,
+  },
   myPosition: "all",
   yourPosition: "all",
 } as SelectPositionState;
@@ -14,6 +24,9 @@ export const selectPositionSlice = createSlice({
   name: "selectPosition",
   initialState,
   reducers: {
+    handleSelectPosition(state, action: PayloadAction<PositionT>) {
+      state.positionSelected = action.payload;
+    },
     handleSelectMyPosition(state, action: PayloadAction<string>) {
       state.myPosition = action.payload;
     },
@@ -23,6 +36,9 @@ export const selectPositionSlice = createSlice({
   },
 });
 
-export const { handleSelectMyPosition, handleSelectYourPosition } =
-  selectPositionSlice.actions;
+export const {
+  handleSelectPosition,
+  handleSelectMyPosition,
+  handleSelectYourPosition,
+} = selectPositionSlice.actions;
 export default selectPositionSlice.reducer;

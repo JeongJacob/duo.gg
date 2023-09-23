@@ -3,16 +3,13 @@ import Image from "next/image";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
+  PositionT,
   handleSelectMyPosition,
+  handleSelectPosition,
   handleSelectYourPosition,
 } from "@/redux/features/selectPositionSlice";
 import { styled } from "styled-components";
 import lol from "@/app/styles/_LOL.module.css";
-
-interface PositionT {
-  position: string;
-  num: number;
-}
 
 const PositonBtn = styled.button<{
   selected: number;
@@ -33,7 +30,7 @@ const PositonBtn = styled.button<{
   }
 `;
 
-const entryPosition: PositionT[] = [
+const positionObject = [
   {
     position: "all",
     num: 0,
@@ -59,10 +56,12 @@ const entryPosition: PositionT[] = [
     num: 5,
   },
 ];
+
 export default function PositionBar({ type }: { type?: string }) {
-  const [positionSelected, setPositionSelected] = useState<PositionT>(
-    entryPosition[0]
+  const [positionSelectedValue, setPositionSelectedValue] = useState<PositionT>(
+    positionObject[0]
   );
+
   const dispatch = useDispatch();
 
   const handleSelectedPosition = (
@@ -70,17 +69,22 @@ export default function PositionBar({ type }: { type?: string }) {
     position: PositionT
   ) => {
     e.preventDefault();
-    setPositionSelected(position);
-    if (type === "my") dispatch(handleSelectMyPosition(position.position));
-    if (type === "your") dispatch(handleSelectYourPosition(position.position));
+    setPositionSelectedValue(position);
+
+    if (type) {
+      if (type === "my") dispatch(handleSelectMyPosition(position.position));
+      if (type === "your")
+        dispatch(handleSelectYourPosition(position.position));
+    } else dispatch(handleSelectPosition(position));
   };
+
   return (
     <>
       <ul className={lol.position__container}>
-        {entryPosition.map((position) => (
+        {positionObject.map((position) => (
           <li key={position.num}>
             <PositonBtn
-              selected={positionSelected.num}
+              selected={positionSelectedValue.num}
               idx={position.num}
               onClick={(e) => {
                 handleSelectedPosition(e, position);
@@ -90,7 +94,7 @@ export default function PositionBar({ type }: { type?: string }) {
                 src={`/position/${position.position}_icon.svg`}
                 width={20}
                 height={20}
-                alt="adc"
+                alt={position.position}
               />
             </PositonBtn>
           </li>
