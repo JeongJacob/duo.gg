@@ -44,9 +44,14 @@ export interface LOLDuoPostType {
   queueValue: string;
 }
 
-function _LOL() {
+export default function _LOL() {
   const [isWriteModal, setIsWriteModal] = useState(false);
   const [postData, setPostData] = useState<LOLDuoPostType[]>([]);
+
+  const positionValue = useSelector(
+    (state: RootState) => state.selectPositon.positionSelected
+  );
+
   const queueValue = useSelector(
     (state: RootState) => state.selectTab.queueValue
   );
@@ -65,16 +70,21 @@ function _LOL() {
       snapshot.forEach((doc) => {
         const data = doc.data() as LOLDuoPostType;
         newDataArray.push(data);
+        if (positionValue.position !== "all")
+          setPostData(
+            newDataArray.filter(
+              (post) => post.myPositonValue === positionValue.position
+            )
+          );
+        else setPostData(newDataArray);
       });
-      setPostData(newDataArray);
     };
 
     const callSnapShot = onSnapshot(q, getDuoPostData);
-
     return () => {
       callSnapShot();
     };
-  }, [db]);
+  }, [db, positionValue]);
 
   return (
     <>
@@ -109,5 +119,3 @@ function _LOL() {
     </>
   );
 }
-
-export default _LOL;
