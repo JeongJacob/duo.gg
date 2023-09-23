@@ -58,7 +58,7 @@ function _LOL() {
     const collectionPath = "duo/lol/post";
     const q = query(collection(db, collectionPath));
 
-    const AddDuoPost = (
+    const getDuoPostData = (
       snapshot: QuerySnapshot<DocumentData, DocumentData>
     ) => {
       const newDataArray: LOLDuoPostType[] = [];
@@ -69,7 +69,7 @@ function _LOL() {
       setPostData(newDataArray);
     };
 
-    const callSnapShot = onSnapshot(q, AddDuoPost);
+    const callSnapShot = onSnapshot(q, getDuoPostData);
 
     return () => {
       callSnapShot();
