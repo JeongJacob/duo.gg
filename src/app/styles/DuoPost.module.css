@@ -1,6 +1,6 @@
 .wrapper {
   width: 90vw;
-  height: 210px;
+  height: 220px;
   margin-top: 2rem;
   border: 1px solid rgb(91, 91, 91);
   border-radius: 5px;
@@ -61,5 +61,5 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 0.7rem;
+  margin-top: 1rem;
 }
