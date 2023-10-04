@@ -2,6 +2,7 @@ import Image from "next/image";
 import { IoMic } from "react-icons/io5";
 import InteractBtn from "./InteractBtn";
 import { LOLDuoPostType } from "../duo/lol/page";
+import Link from "next/link";
 import post from "@/app/styles/DuoPost.module.css";
 
 export default function DuoPost({ postData }: { postData: LOLDuoPostType }) {
@@ -16,6 +17,7 @@ export default function DuoPost({ postData }: { postData: LOLDuoPostType }) {
 
     return filteredPosition;
   };
+
   return (
     <div className={post.wrapper}>
       <div className={post.container}>
@@ -65,7 +67,13 @@ export default function DuoPost({ postData }: { postData: LOLDuoPostType }) {
               {postData.summonerName}
             </span>
           </div>
-          <InteractBtn width="120px" text={"전적 보기"} />
+           {/* 추후 마이페이지로 이동 */}
+          <Link
+            href={`https://www.op.gg/summoners/kr/${postData.summonerName}`}
+            target="blink"
+          >
+            <InteractBtn width="120px" text={"전적 보기"} />
+          </Link>
         </div>
       </div>
     </div>
