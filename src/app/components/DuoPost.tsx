@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { IoMic } from "react-icons/io5";
 import InteractBtn from "./InteractBtn";
-import post from "@/app/styles/DuoPost.module.css";
 import { LOLDuoPostType } from "../duo/lol/page";
+import post from "@/app/styles/DuoPost.module.css";
 
 export default function DuoPost({ postData }: { postData: LOLDuoPostType }) {
   const handlePositionFilter = (position: string) => {
@@ -22,10 +22,10 @@ export default function DuoPost({ postData }: { postData: LOLDuoPostType }) {
         <div className={post.summoner__info__container}>
           <Image
             className={post.summonerImage__element}
-            src={"/challenger.webp"}
+            src={`http://ddragon.leagueoflegends.com/cdn/13.19.1/img/profileicon/${postData.summonerProfileIconId}.png`}
             width={50}
             height={50}
-            alt="adc"
+            alt={postData.summonerName}
           />
           <div>
             <div className={post.summoner__title__container}>
@@ -35,12 +35,15 @@ export default function DuoPost({ postData }: { postData: LOLDuoPostType }) {
             <div className={post.summoner__info__tier__container}>
               <Image
                 className={post.summoner__info__tier}
-                src={"/challenger.webp"}
+                src={`/tier/${postData.tier}.webp`}
                 width={30}
                 height={30}
-                alt="adc"
+                alt={postData.tier}
               />
-              <span>C1</span>
+              <span>
+                {postData.tier}&nbsp;
+                {postData.rank}
+              </span>
               {postData.isVoice && (
                 <IoMic className={post.summoner__info__voice} />
               )}
@@ -56,7 +59,7 @@ export default function DuoPost({ postData }: { postData: LOLDuoPostType }) {
               src={`/position/${postData.myPositonValue}_icon.svg`}
               width={20}
               height={20}
-              alt="adc"
+              alt={postData.myPositonValue}
             />
             <span className={post.summoner__name__element}>
               {postData.summonerName}
