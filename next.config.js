@@ -5,9 +5,9 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
+        protocol: "http",
         hostname: "ddragon.leagueoflegends.com",
-        pathname: "/cdn/13.3.1/img/profileicon/**",
+        pathname: "/cdn/**/img/profileicon/**",
       },
     ],
   },
