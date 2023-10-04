@@ -12,51 +12,54 @@
   color: white;
 }
 
-.user__info__container {
+.summoner__info__container {
   display: flex;
 }
 
-.user__name__container {
-  display: flex;
-  align-items: center;
-  margin-left: 0.3rem;
+.summoner__title__container {
+  margin-left: 0.5rem;
 }
-.user__name__element {
+.summoner__info__tier__container {
   margin-left: 0.3rem;
 }
 
-.user__info__tier__container {
+.summoner__info__tier__container {
   display: flex;
   align-items: center;
 }
 
-.user__info__voice {
-  width: 20px;
-  height: 20px;
-  color: rgb(38, 61, 215);
+.summoner__info__voice {
+  width: 17px;
+  height: 17px;
+  color: rgb(96, 240, 0);
   margin-left: 0.3rem;
 }
 
-.userImage__element {
+.summonerImage__element {
   background-color: white;
   border-radius: 50px;
 }
 
-.user__memo__container {
+.summoner__board__container {
   margin: 0.5rem 0;
   height: 80px;
   font-size: 15px;
 }
 
-.user__record__container {
+.summoner__name__container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 1rem;
+}
+
+.summoner__name__element {
+  margin-left: 0.3rem;
+}
+
+.summoner__record__container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 0.7rem;
-}
-
-.user__most__container {
-  display: flex;
-  justify-content: space-between;
-  width: 130px;
+  margin-top: 1rem;
 }

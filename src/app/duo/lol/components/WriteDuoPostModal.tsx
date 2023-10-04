@@ -1,6 +1,6 @@
 import DuoSelectModal from "@/app/components/DuoSelect";
 import { RootState } from "@/redux/store";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { IoMic } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import PositionBar from "@/app/components/PositionBar";
@@ -8,6 +8,10 @@ import InteractBtn from "@/app/components/InteractBtn";
 import { queueOptionData } from "../page";
 import { db } from "@/firebase/clientApp";
 import { addDoc, collection } from "firebase/firestore";
+import {
+  riotSummonersAxios,
+  riotSummonersTierAxios,
+} from "@/app/instance/riotInstance";
 import { styled } from "styled-components";
 import lol from "@/app/styles/_LOL.module.css";
 
@@ -41,7 +45,6 @@ export default function WriteDuoPostModal({
     summonerBoard: "",
   });
   const [isVoiceToggle, setIsVoiceToggle] = useState(false);
-
   //store
   const queueValue = useSelector(
     (state: RootState) => state.selectTab.queueValue
@@ -54,16 +57,38 @@ export default function WriteDuoPostModal({
   );
 
   const handleAddDuoPost = async () => {
-    const { summonerName, summonerBoard } = summonerInput;
-    await addDoc(collection(db, "duo/lol/post"), {
-      isVocie: isVoiceToggle,
-      summonerName: summonerName,
-      summonerBoard: summonerBoard,
-      myPositonValue: myPositonValue,
-      yourPositonValue: yourPositonValue,
-      queueValue: queueValue.value,
-    });
+    try {
+      const { summonerName, summonerBoard } = summonerInput;
+
+      //소환사 uuid 정보 가져오기
+      const getSummonerUUid = await riotSummonersAxios.get(`${summonerName}`);
+      const summonerUUid = getSummonerUUid.data.id;
+      const summonerProfileIconId = getSummonerUUid.data.profileIconId;
+
+      //소환사 티어 정보 가져오기
+      const getSummonerTier = await riotSummonersTierAxios.get(
+        `${summonerUUid}`
+      );
+      const tier = getSummonerTier.data[0].tier;
+      const rank = getSummonerTier.data[0].rank;
+
+      await addDoc(collection(db, "duo/lol/post"), {
+        isVoice: isVoiceToggle,
+        summonerName: summonerName,
+        summonerBoard: summonerBoard,
+        myPositonValue: myPositonValue,
+        yourPositonValue: yourPositonValue,
+        queueValue: queueValue.value,
+        tier: tier,
+        rank: rank,
+        summonerProfileIconId: summonerProfileIconId,
+      });
+    } catch (err) {
+      alert("소환사 정보를 불러오던 도중 실패하였습니다.");
+      console.error(err);
+    }
   };
+
   return (
     <div className={lol.duoPostModal__bg__wrapper}>
       <div className={lol.duoPostModal__wrapper}>

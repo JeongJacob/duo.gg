@@ -23,11 +23,13 @@ export default function DuoSelectModal({
   selectData,
   width,
   isQueue,
+  isChange,
   defaultValue,
 }: {
   selectData: SelectType[];
   width: string;
   isQueue: boolean;
+  isChange?: boolean;
   defaultValue: DefaultValueType;
 }) {
   const dispatch = useDispatch();
@@ -75,7 +77,7 @@ export default function DuoSelectModal({
       styles={customStyles}
       defaultValue={defaultValue}
       onChange={(selectValue) =>
-        selectValue && handleSelectValue(selectValue.value)
+        isChange && selectValue && handleSelectValue(selectValue.value)
       }
     />
   );
