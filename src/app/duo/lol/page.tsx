@@ -39,9 +39,12 @@ export interface LOLDuoPostType {
   isVoice: boolean;
   summonerName: string;
   summonerBoard: string;
+  summonerProfileIconId: string;
   myPositonValue: string;
   yourPositonValue: string;
   queueValue: string;
+  tier: string;
+  rank: string;
 }
 
 export default function _LOL() {
