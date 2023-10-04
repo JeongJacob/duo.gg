@@ -27,12 +27,12 @@ export const queueOptionData = [
 
 const tierOptionsData = [
   { value: "모든 티어", label: "모든 티어" },
-  { value: "아이언", label: "아이언" },
-  { value: "브론즈", label: "브론즈" },
-  { value: "실버", label: "실버" },
-  { value: "골드", label: "골드" },
-  { value: "에메랄드", label: "에메랄드" },
-  { value: "다이아몬드", label: "다이아몬드" },
+  { value: "IRON", label: "아이언" },
+  { value: "BRONZE", label: "브론즈" },
+  { value: "SILVER", label: "실버" },
+  { value: "GOLD", label: "골드" },
+  { value: "EMERALD", label: "에메랄드" },
+  { value: "DIAMOND", label: "다이아몬드" },
 ];
 
 export interface LOLDuoPostType {
@@ -73,13 +73,19 @@ export default function _LOL() {
       snapshot.forEach((doc) => {
         const data = doc.data() as LOLDuoPostType;
         newDataArray.push(data);
-        if (positionValue.position !== "all")
-          setPostData(
-            newDataArray.filter(
-              (post) => post.myPositonValue === positionValue.position
-            )
-          );
-        else setPostData(newDataArray);
+        const filterFunction = (post: LOLDuoPostType) => {
+          const isPositionMatch =
+            positionValue.position === "all" ||
+            post.myPositonValue === positionValue.position;
+          const isTierMatch =
+            tierValue.value === "모든 티어" || post.tier === tierValue.value;
+          const isQueueMatch =
+            queueValue.value === "모든 큐" ||
+            post.queueValue === queueValue.value;
+          return isPositionMatch && isTierMatch && isQueueMatch;
+        };
+        const filteredData = newDataArray.filter(filterFunction);
+        setPostData(filteredData);
       });
     };
 
@@ -87,7 +93,7 @@ export default function _LOL() {
     return () => {
       callSnapShot();
     };
-  }, [db, positionValue]);
+  }, [db, positionValue, queueValue, tierValue]);
 
   return (
     <>
@@ -98,12 +104,14 @@ export default function _LOL() {
             selectData={queueOptionData}
             width="180px"
             isQueue={true}
+            isChange={true}
             defaultValue={queueValue}
           />
           <DuoSelect
             selectData={tierOptionsData}
             width="160px"
             isQueue={false}
+            isChange={true}
             defaultValue={tierValue}
           />
         </div>
