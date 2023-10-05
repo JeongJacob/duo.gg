@@ -38,7 +38,7 @@ export default function DuoPost({ postData }: { postData: LOLDuoPostType }) {
               <Image
                 className={post.summoner__info__tier}
                 src={
-                  postData.tier !== "Unranked"
+                  postData.tier !== "UNRANKED"
                     ? `/tier/${postData.tier}.webp`
                     : "/tier/unranked.svg"
                 }
