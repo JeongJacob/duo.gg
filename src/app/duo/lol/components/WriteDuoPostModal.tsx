@@ -59,6 +59,8 @@ export default function WriteDuoPostModal({
   const handleAddDuoPost = async () => {
     try {
       const { summonerName, summonerBoard } = summonerInput;
+      let tier = "";
+      let rank = "";
 
       //소환사 uuid 정보 가져오기
       const getSummonerUUid = await riotSummonersAxios.get(`${summonerName}`);
@@ -69,8 +71,13 @@ export default function WriteDuoPostModal({
       const getSummonerTier = await riotSummonersTierAxios.get(
         `${summonerUUid}`
       );
-      const tier = getSummonerTier.data[0].tier;
-      const rank = getSummonerTier.data[0].rank;
+      if (getSummonerTier.data.length !== 0) {
+        tier = getSummonerTier.data[0].tier;
+        rank = getSummonerTier.data[0].rank;
+      } else {
+        tier = "UNRANKED";
+        rank = "";
+      }
 
       await addDoc(collection(db, "duo/lol/post"), {
         isVoice: isVoiceToggle,
