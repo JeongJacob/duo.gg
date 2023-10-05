@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import DuoPost from "@/app/components/DuoPost";
-import DuoSelect from "@/app/components/DuoSelect";
+import { MemoizeDuoSelect } from "@/app/components/DuoSelect";
 import PositionBar from "@/app/components/PositionBar";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
@@ -31,6 +31,7 @@ const tierOptionsData = [
   { value: "BRONZE", label: "브론즈" },
   { value: "SILVER", label: "실버" },
   { value: "GOLD", label: "골드" },
+  { value: "PLATINUM", label: "플래티넘" },
   { value: "EMERALD", label: "에메랄드" },
   { value: "DIAMOND", label: "다이아몬드" },
 ];
@@ -61,7 +62,6 @@ export default function _LOL() {
   const tierValue = useSelector(
     (state: RootState) => state.selectTab.tierValue
   );
-
   useEffect(() => {
     const collectionPath = "duo/lol/post";
     const q = query(collection(db, collectionPath));
@@ -100,18 +100,16 @@ export default function _LOL() {
       {isWriteModal && <WriteDuoPostModal setIsWriteModal={setIsWriteModal} />}
       <div className={lol.wrapper}>
         <div className={lol.type__wrapper}>
-          <DuoSelect
+          <MemoizeDuoSelect
             selectData={queueOptionData}
             width="180px"
             isQueue={true}
-            isChange={true}
             defaultValue={queueValue}
           />
-          <DuoSelect
+          <MemoizeDuoSelect
             selectData={tierOptionsData}
             width="160px"
             isQueue={false}
-            isChange={true}
             defaultValue={tierValue}
           />
         </div>
