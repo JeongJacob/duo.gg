@@ -3,6 +3,7 @@ import {
   handleSelectQueueTab,
   handleSelectTierTab,
 } from "@/redux/features/selectTabSlice";
+import React from "react";
 import { useDispatch } from "react-redux";
 import Select, {
   CSSObjectWithLabel,
@@ -19,17 +20,15 @@ interface DefaultValueType {
   value: string;
   label: string;
 }
-export default function DuoSelectModal({
+export default function DuoSelect({
   selectData,
   width,
   isQueue,
-  isChange,
   defaultValue,
 }: {
   selectData: SelectType[];
   width: string;
   isQueue: boolean;
-  isChange?: boolean;
   defaultValue: DefaultValueType;
 }) {
   const dispatch = useDispatch();
@@ -77,8 +76,10 @@ export default function DuoSelectModal({
       styles={customStyles}
       defaultValue={defaultValue}
       onChange={(selectValue) =>
-        isChange && selectValue && handleSelectValue(selectValue.value)
+        selectValue && handleSelectValue(selectValue.value)
       }
     />
   );
 }
+
+export const MemoizeDuoSelect = React.memo(DuoSelect);
