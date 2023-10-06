@@ -1,6 +1,6 @@
 import DuoSelectModal from "@/app/components/DuoSelect";
 import { RootState } from "@/redux/store";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { IoMic } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import PositionBar from "@/app/components/PositionBar";
@@ -35,6 +35,20 @@ const ToggleCircle = styled.button<{ $isToggle: boolean }>`
     props.$isToggle ? "translateX(22px)" : "translateX(3px)"};
 `;
 
+interface SummonerTierInfo {
+  freshBlood: boolean;
+  hotStreak: boolean;
+  inactive: boolean;
+  leagueId: string;
+  leaguePoints: number;
+  losses: number;
+  queueType: string;
+  rank: string;
+  summonerId: string;
+  summonerName: string;
+  tier: string;
+  veteran: boolean;
+}
 export default function WriteDuoPostModal({
   setIsWriteModal,
 }: {
@@ -56,9 +70,12 @@ export default function WriteDuoPostModal({
     (state: RootState) => state.selectPositon.yourPosition
   );
 
+  console.log(queueValue.value);
   const handleAddDuoPost = async () => {
     try {
       const { summonerName, summonerBoard } = summonerInput;
+      let tier = "";
+      let rank = "";
 
       //소환사 uuid 정보 가져오기
       const getSummonerUUid = await riotSummonersAxios.get(`${summonerName}`);
@@ -69,8 +86,29 @@ export default function WriteDuoPostModal({
       const getSummonerTier = await riotSummonersTierAxios.get(
         `${summonerUUid}`
       );
-      const tier = getSummonerTier.data[0].tier;
-      const rank = getSummonerTier.data[0].rank;
+
+      if (getSummonerTier.data.length >= 1) {
+        if (
+          queueValue.value === "솔로랭크" ||
+          queueValue.value !== "자유랭크"
+        ) {
+          const soloRankInfo = getSummonerTier.data.filter(
+            (match: SummonerTierInfo) => match.queueType === "RANKED_SOLO_5x5"
+          );
+          tier = soloRankInfo[0].tier;
+          rank = soloRankInfo[0].rank;
+        }
+        if (queueValue.value === "자유랭크") {
+          const flexRankInfo = getSummonerTier.data.filter(
+            (match: SummonerTierInfo) => match.queueType === "RANKED_FLEX_SR"
+          );
+          tier = flexRankInfo[0].tier;
+          rank = flexRankInfo[0].rank;
+        }
+      } else {
+        tier = "UNRANKED";
+        rank = "";
+      }
 
       await addDoc(collection(db, "duo/lol/post"), {
         isVoice: isVoiceToggle,
@@ -83,12 +121,12 @@ export default function WriteDuoPostModal({
         rank: rank,
         summonerProfileIconId: summonerProfileIconId,
       });
+      setIsWriteModal(false);
     } catch (err) {
       alert("소환사 정보를 불러오던 도중 실패하였습니다.");
       console.error(err);
     }
   };
-
   return (
     <div className={lol.duoPostModal__bg__wrapper}>
       <div className={lol.duoPostModal__wrapper}>
@@ -104,12 +142,13 @@ export default function WriteDuoPostModal({
           <input
             type="text"
             placeholder="내 소환사명"
-            onChange={(e) =>
+            onChange={(e) => {
+              e.preventDefault();
               setSummonerInput({
                 ...summonerInput,
                 summonerName: e.target.value,
-              })
-            }
+              });
+            }}
           />
         </div>
         <div className={lol.myPosition__container}>

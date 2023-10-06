@@ -37,7 +37,11 @@ export default function DuoPost({ postData }: { postData: LOLDuoPostType }) {
             <div className={post.summoner__info__tier__container}>
               <Image
                 className={post.summoner__info__tier}
-                src={`/tier/${postData.tier}.webp`}
+                src={
+                  postData.tier !== "UNRANKED"
+                    ? `/tier/${postData.tier}.webp`
+                    : "/tier/unranked.svg"
+                }
                 width={30}
                 height={30}
                 alt={postData.tier}
@@ -67,7 +71,7 @@ export default function DuoPost({ postData }: { postData: LOLDuoPostType }) {
               {postData.summonerName}
             </span>
           </div>
-           {/* 추후 마이페이지로 이동 */}
+          {/* 추후 마이페이지로 이동 */}
           <Link
             href={`https://www.op.gg/summoners/kr/${postData.summonerName}`}
             target="blink"
