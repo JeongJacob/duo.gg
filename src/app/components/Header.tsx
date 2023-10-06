@@ -11,6 +11,7 @@ export default function Header() {
   return (
     <header className={header.wrapper}>
       <div className={header.container}>
+        <Link href={"/"}>홈</Link>
         <Link href={"/duo/lol"}>듀오찾기</Link>
         {isLogin ? (
           <Link href={"/login"}>로그인</Link>
