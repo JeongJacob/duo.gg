@@ -17,10 +17,12 @@ export default function InteractBtn({
   width,
   text,
   onClick,
+  type,
 }: {
   width: string;
   text: string;
   onClick?: () => void;
+  type?: "button" | "submit" | "reset";
 }) {
   return (
     <InteractBtnStyled width={width} onClick={onClick}>
