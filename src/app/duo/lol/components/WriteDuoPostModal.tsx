@@ -70,7 +70,6 @@ export default function WriteDuoPostModal({
     (state: RootState) => state.selectPositon.yourPosition
   );
 
-  console.log(queueValue.value);
   const handleAddDuoPost = async () => {
     try {
       const { summonerName, summonerBoard } = summonerInput;
@@ -81,11 +80,11 @@ export default function WriteDuoPostModal({
       const getSummonerUUid = await riotSummonersAxios.get(`${summonerName}`);
       const summonerUUid = getSummonerUUid.data.id;
       const summonerProfileIconId = getSummonerUUid.data.profileIconId;
-
+      
       //소환사 티어 정보 가져오기
       const getSummonerTier = await riotSummonersTierAxios.get(
         `${summonerUUid}`
-      );
+        );
 
       if (getSummonerTier.data.length >= 1) {
         if (
