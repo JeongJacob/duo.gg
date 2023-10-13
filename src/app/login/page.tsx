@@ -24,7 +24,7 @@ export const LoginDiv = styled.div`
   color: white;
 `;
 export default function Login() {
-  const [isSignup, setIsSignup] = useState(true);
+  const [isSignup, setIsSignup] = useState(false);
   return (
     <>
       {isSignup && <SignUpModal setIsSignUp={setIsSignup} />}
