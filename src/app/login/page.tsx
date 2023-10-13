@@ -6,19 +6,16 @@ import SignUpModal from "./components/SignUpModal";
 import styled from "styled-components";
 import login from "@/app/styles/Login.module.css";
 
-export const LoginInput = styled.input`
-  width: 250px;
-  height: 35px;
+export const LoginInput = styled.input<{ $isValid?: boolean }>`
+  width: 270px;
+  height: 32px;
   padding-left: 5px;
   border: none;
   color: black;
   margin-top: 0.2rem;
   border-radius: 5px;
-  outline: 2px solid #25ae25;
-
-  &:focus {
-    outline: 1px solid #1fc11f;
-  }
+  outline: ${(props) =>
+    props.$isValid ? "1px solid #c12828" : "1px solid #25ae25"};
 `;
 export const LoginDiv = styled.div`
   display: flex;
