@@ -72,7 +72,7 @@ export default function _LOL() {
       const newDataArray: LOLDuoPostType[] = [];
       snapshot.forEach((doc) => {
         const data = doc.data() as LOLDuoPostType;
-        newDataArray.push(data);
+        newDataArray.unshift(data);
         const filterFunction = (post: LOLDuoPostType) => {
           const isPositionMatch =
             positionValue.position === "all" ||
