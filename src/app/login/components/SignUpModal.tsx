@@ -2,7 +2,7 @@
 import { LoginDiv, LoginInput } from "../page";
 import InteractBtn from "@/app/components/InteractBtn";
 import Image from "next/image";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction,useState } from "react";
 import login from "@/app/styles/Login.module.css";
 import styled from "styled-components";
 import { AiFillWarning } from "react-icons/ai";
@@ -52,6 +52,31 @@ export default function SignUpModal({
     passwordValid: "",
     nickname: "",
   });
+  const [isSignUpValid, setIsSignUpValid] = useState<SignUpValidT>({
+    isEmailValid: false,
+    isPasswordValid: false,
+    isConfirmPasswordValid: false,
+    isNicknameValid: false,
+  });
+  const [errorMsg, setErrorMsg] = useState({
+    emailErrorMsg: "",
+    passwordErrorMsg: "",
+    passwordValidErrorMsg: "",
+    nicknameErrorMsg: "",
+  });
+  const { email, password, passwordValid, nickname } = signUpInputText;
+  const {
+    isEmailValid,
+    isPasswordValid,
+    isConfirmPasswordValid,
+    isNicknameValid,
+  } = isSignUpValid;
+  const {
+    emailErrorMsg,
+    passwordErrorMsg,
+    passwordValidErrorMsg,
+    nicknameErrorMsg,
+  } = errorMsg;
 
   return (
     <div className={login.modal__bg__wrapper}>
@@ -68,19 +93,62 @@ export default function SignUpModal({
           <form>
             <LoginDiv>
               <span>이메일</span>
-              <LoginInput type="email" placeholder="jacob@duo.gg" required />
+              <LoginInput
+                type="email"
+                placeholder="jacob@duo.gg"
+                value={email}
+                required
+                $isValid={isSignUpValid.isEmailValid}
+              />
+              {isEmailValid && (
+                <InvalidSignUpInputMsg>
+                  <AiFillWarning />
+                  &nbsp; {emailErrorMsg}
+                </InvalidSignUpInputMsg>
+              )}
             </LoginDiv>
             <LoginDiv>
               <span>비밀번호</span>
-              <LoginInput type="password" required />
+              <LoginInput
+                type="password"
+                value={password}
+                required
+              />
+              {isPasswordValid && (
+                <InvalidSignUpInputMsg>
+                  <AiFillWarning />
+                  &nbsp; {passwordErrorMsg}
+                </InvalidSignUpInputMsg>
+              )}
             </LoginDiv>
             <LoginDiv>
               <span>비밀번호 확인</span>
-              <LoginInput type="password" required />
+              <LoginInput
+                type="password"
+                value={passwordValid}
+                required
+                $isValid={isSignUpValid.isPasswordValid}
+              />
+              {isConfirmPasswordValid && (
+                <InvalidSignUpInputMsg>
+                  <AiFillWarning />
+                  &nbsp; {passwordValidErrorMsg}
+                </InvalidSignUpInputMsg>
+              )}
             </LoginDiv>
             <LoginDiv>
               <span>닉네임</span>
-              <LoginInput type="text" required />
+              <LoginInput
+                type="text"
+                value={nickname}
+                required
+              />
+              {isNicknameValid && (
+                <InvalidSignUpInputMsg>
+                  <AiFillWarning />
+                  &nbsp; 존재하지 않는 닉네임입니다.
+                </InvalidSignUpInputMsg>
+              )}
             </LoginDiv>
             <div className={login.btn__container}>
               <InteractBtn width="100px" text="회원가입" type="submit" />
