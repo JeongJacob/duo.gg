@@ -4,6 +4,8 @@ import InteractBtn from "@/app/components/InteractBtn";
 import Image from "next/image";
 import { Dispatch, SetStateAction, useCallback, useState } from "react";
 import login from "@/app/styles/Login.module.css";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/firebase/clientApp";
 import styled from "styled-components";
 import { AiFillWarning } from "react-icons/ai";
 
@@ -134,6 +136,31 @@ export default function SignUpModal({
     []
   );
 
+  const onChangeConfirmPassword = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const currentPasswordValid = e.target.value;
+      setSignUpInputText((prevSignUpInputText) => ({
+        ...prevSignUpInputText,
+        passwordValid: currentPasswordValid,
+      }));
+      if (password !== currentPasswordValid) {
+        setIsSignUpValid({
+          ...isSignUpValid,
+          isConfirmPasswordValid: true,
+        });
+        setErrorMsg({
+          ...errorMsg,
+          passwordValidErrorMsg: "비밀번호가 일치하지 않습니다.",
+        });
+      } else
+        setIsSignUpValid({
+          ...isSignUpValid,
+          isConfirmPasswordValid: false,
+        });
+    },
+    []
+  );
+
   return (
     <div className={login.modal__bg__wrapper}>
       <div className={login.modal__wrapper}>
@@ -171,6 +198,7 @@ export default function SignUpModal({
                 value={password}
                 required
                 onChange={onChangePassword}
+                $isValid={isSignUpValid.isPasswordValid}
               />
               {isPasswordValid && (
                 <InvalidSignUpInputMsg>
@@ -185,7 +213,8 @@ export default function SignUpModal({
                 type="password"
                 value={passwordValid}
                 required
-                $isValid={isSignUpValid.isPasswordValid}
+                onChange={onChangeConfirmPassword}
+                $isValid={isSignUpValid.isConfirmPasswordValid}
               />
               {isConfirmPasswordValid && (
                 <InvalidSignUpInputMsg>
