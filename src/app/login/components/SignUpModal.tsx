@@ -2,7 +2,7 @@
 import { LoginDiv, LoginInput } from "../page";
 import InteractBtn from "@/app/components/InteractBtn";
 import Image from "next/image";
-import { Dispatch, SetStateAction,useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useState } from "react";
 import login from "@/app/styles/Login.module.css";
 import styled from "styled-components";
 import { AiFillWarning } from "react-icons/ai";
@@ -78,6 +78,33 @@ export default function SignUpModal({
     nicknameErrorMsg,
   } = errorMsg;
 
+  const onChangeEmail = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const emailRegex =
+        /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+      const currentEmail = e.target.value;
+      setSignUpInputText((prevSignUpInputText) => ({
+        ...prevSignUpInputText,
+        email: currentEmail,
+      }));
+      if (!emailRegex.test(currentEmail)) {
+        setIsSignUpValid({
+          ...isSignUpValid,
+          isEmailValid: true,
+        });
+        setErrorMsg({
+          ...errorMsg,
+          emailErrorMsg: "올바른 이메일 형식이 아닙니다.",
+        });
+      } else
+        setIsSignUpValid({
+          ...isSignUpValid,
+          isEmailValid: false,
+        });
+    },
+    []
+  );
+
   return (
     <div className={login.modal__bg__wrapper}>
       <div className={login.modal__wrapper}>
@@ -98,6 +125,7 @@ export default function SignUpModal({
                 placeholder="jacob@duo.gg"
                 value={email}
                 required
+                onChange={(e) => onChangeEmail(e)}
                 $isValid={isSignUpValid.isEmailValid}
               />
               {isEmailValid && (
