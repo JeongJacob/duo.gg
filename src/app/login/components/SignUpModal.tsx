@@ -104,6 +104,35 @@ export default function SignUpModal({
     },
     []
   );
+  const onChangePassword = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const passwordRegex =
+        /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+      const currentPassword = e.target.value;
+      setSignUpInputText((prevSignUpInputText) => ({
+        ...prevSignUpInputText,
+        password: currentPassword,
+      }));
+      const isValidExpPassword = passwordRegex.test(currentPassword);
+      const isValidLengthPassword =
+        15 >= currentPassword.length || 8 <= currentPassword.length;
+      if (!isValidExpPassword || !isValidLengthPassword) {
+        setIsSignUpValid({
+          ...isSignUpValid,
+          isPasswordValid: true,
+        });
+        setErrorMsg({
+          ...errorMsg,
+          passwordErrorMsg: "특수문자를 포함한 8자~15자 내로 작성해주세요.",
+        });
+      } else
+        setIsSignUpValid({
+          ...isSignUpValid,
+          isPasswordValid: false,
+        });
+    },
+    []
+  );
 
   return (
     <div className={login.modal__bg__wrapper}>
@@ -141,6 +170,7 @@ export default function SignUpModal({
                 type="password"
                 value={password}
                 required
+                onChange={onChangePassword}
               />
               {isPasswordValid && (
                 <InvalidSignUpInputMsg>
