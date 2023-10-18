@@ -7,7 +7,7 @@ import styled from "styled-components";
 import login from "@/app/styles/Login.module.css";
 
 export const LoginInput = styled.input<{ $isValid?: boolean }>`
-  width: 270px;
+  width: 280px;
   height: 32px;
   padding-left: 5px;
   border: none;
