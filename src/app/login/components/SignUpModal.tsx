@@ -4,6 +4,7 @@ import InteractBtn from "@/app/components/InteractBtn";
 import Image from "next/image";
 import { Dispatch, SetStateAction, useCallback, useState } from "react";
 import { riotSummonersAxios } from "@/app/instance/riotInstance";
+import { debounce } from "lodash";
 import { AiFillWarning } from "react-icons/ai";
 import styled from "styled-components";
 import login from "@/app/styles/Login.module.css";
@@ -161,25 +162,29 @@ export default function SignUpModal({
     [password]
   );
 
-  const handleSearchNickname = () => {
-    riotSummonersAxios(`/${nickname}`)
-      .then(() =>
-        setIsSignUpValid({
-          ...isSignUpValid,
-          isNicknameValid: false,
+  const debouncedHandleSearchNickname = useCallback(
+    debounce((nickname: string) => {
+      riotSummonersAxios
+        .get(`${nickname}`)
+        .then(() => {
+          setIsSignUpValid((prevState) => ({
+            ...prevState,
+            isNicknameValid: false,
+          }));
         })
-      )
-      .catch(() => {
-        setIsSignUpValid({
-          ...isSignUpValid,
-          isNicknameValid: true,
+        .catch(() => {
+          setIsSignUpValid((prevState) => ({
+            ...prevState,
+            isNicknameValid: true,
+          }));
+          setErrorMsg((prevState) => ({
+            ...prevState,
+            nicknameErrorMsg: "존재하지 않는 닉네임입니다.",
+          }));
         });
-        setErrorMsg({
-          ...errorMsg,
-          nicknameErrorMsg: "존재하지 않는 닉네임입니다.",
-        });
-      });
-  };
+    }, 500),
+    []
+  );
 
   const onChangeConfirmNickname = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -188,10 +193,11 @@ export default function SignUpModal({
         ...prevSignUpInputText,
         nickname: currentNickname,
       }));
-      handleSearchNickname();
+      debouncedHandleSearchNickname(currentNickname);
     },
     []
   );
+
   return (
     <div className={login.modal__bg__wrapper}>
       <div className={login.modal__wrapper}>
