@@ -3,11 +3,9 @@ import { LoginDiv, LoginInput } from "../page";
 import InteractBtn from "@/app/components/InteractBtn";
 import Image from "next/image";
 import { Dispatch, SetStateAction, useCallback, useState } from "react";
-import login from "@/app/styles/Login.module.css";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/firebase/clientApp";
-import styled from "styled-components";
 import { AiFillWarning } from "react-icons/ai";
+import styled from "styled-components";
+import login from "@/app/styles/Login.module.css";
 
 interface SignUpInputT {
   email: string;
@@ -106,6 +104,7 @@ export default function SignUpModal({
     },
     []
   );
+
   const onChangePassword = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const passwordRegex =
@@ -159,6 +158,17 @@ export default function SignUpModal({
         });
     },
     [password]
+  );
+
+  const onChangeConfirmNickname = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const currentNickname = e.target.value;
+      setSignUpInputText((prevSignUpInputText) => ({
+        ...prevSignUpInputText,
+        nickname: currentNickname,
+      }));
+    },
+    []
   );
   return (
     <div className={login.modal__bg__wrapper}>
@@ -224,11 +234,16 @@ export default function SignUpModal({
             </LoginDiv>
             <LoginDiv>
               <span>닉네임</span>
-              <LoginInput type="text" defaultValue={nickname} required />
+              <LoginInput
+                type="text"
+                defaultValue={nickname}
+                required
+                onChange={onChangeConfirmNickname}
+              />
               {isNicknameValid && (
                 <InvalidSignUpInputMsg>
                   <AiFillWarning />
-                  &nbsp; 존재하지 않는 닉네임입니다.
+                  &nbsp; {nicknameErrorMsg}
                 </InvalidSignUpInputMsg>
               )}
             </LoginDiv>
