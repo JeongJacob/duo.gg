@@ -125,7 +125,7 @@ export default function SignUpModal({
         });
         setErrorMsg({
           ...errorMsg,
-          passwordErrorMsg: "특수문자를 포함한 8자~15자 내로 작성해주세요.",
+          passwordErrorMsg: "특수문자를 포함하여 8자~15자 내로 작성해주세요.",
         });
       } else
         setIsSignUpValid({
@@ -158,9 +158,8 @@ export default function SignUpModal({
           isConfirmPasswordValid: false,
         });
     },
-    []
+    [password]
   );
-
   return (
     <div className={login.modal__bg__wrapper}>
       <div className={login.modal__wrapper}>
@@ -179,7 +178,7 @@ export default function SignUpModal({
               <LoginInput
                 type="email"
                 placeholder="jacob@duo.gg"
-                value={email}
+                defaultValue={email}
                 required
                 onChange={(e) => onChangeEmail(e)}
                 $isValid={isSignUpValid.isEmailValid}
@@ -195,7 +194,7 @@ export default function SignUpModal({
               <span>비밀번호</span>
               <LoginInput
                 type="password"
-                value={password}
+                defaultValue={password}
                 required
                 onChange={onChangePassword}
                 $isValid={isSignUpValid.isPasswordValid}
@@ -211,7 +210,7 @@ export default function SignUpModal({
               <span>비밀번호 확인</span>
               <LoginInput
                 type="password"
-                value={passwordValid}
+                defaultValue={passwordValid}
                 required
                 onChange={onChangeConfirmPassword}
                 $isValid={isSignUpValid.isConfirmPasswordValid}
@@ -225,11 +224,7 @@ export default function SignUpModal({
             </LoginDiv>
             <LoginDiv>
               <span>닉네임</span>
-              <LoginInput
-                type="text"
-                value={nickname}
-                required
-              />
+              <LoginInput type="text" defaultValue={nickname} required />
               {isNicknameValid && (
                 <InvalidSignUpInputMsg>
                   <AiFillWarning />
